@@ -74,7 +74,8 @@ def get_idx(ligand_list):
     returns: list of index lists corresponding to each ligand
     usage: etrieves bond node indices for given ligand SMILES from the ligands_misc_info.csv table '''
 
-    global data_smiles
+    url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
+    data_smiles = pd.read_csv(url1, sep=";")
     idx_list = []
     for j in ligand_list:
         for i in range(len(data_smiles["smiles"])):
@@ -204,8 +205,9 @@ def smile_to_number(ligands):
     returns: list of numbers corresponding to each ligand
     usage: converts ligand SMILES to numbers based on the ligands_misc_info.csv table  '''
 
+    url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
+    data_smiles = pd.read_csv(url1, sep=";")
     number_list = []
-    global data_smiles
     for ligand in ligands:
         if ligand == "":
             continue
@@ -226,6 +228,8 @@ def total_charge_of_the_ligands(number_list):
     returns: total charge of the ligands
     usage:calculates the total charge of the ligands based on their numbers determined in smile_to_number(ligands) '''
     
+    url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
+    data_number_to_charge = pd.read_csv(url2, sep=";")
     total_charge_ligands = 0
     for ligand_number in number_list:
         for index, row in data_number_to_charge.iterrows():
@@ -243,6 +247,8 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
     returns: oxidation state of a metal
     usage: determines the oxidation state of the metal based on ligand charges and total complex charge '''
     
+    url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
+    data_oxydation_metal = pd.read_csv(url3, sep=";")
     oxydation_by_input = charge - total_charge_ligands
     met=[metal]
     for index, row in data_oxydation_metal.iterrows():
