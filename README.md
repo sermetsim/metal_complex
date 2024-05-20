@@ -105,7 +105,7 @@ python main.py
 The script uses the following CSV files for ligand and metal information:
    - [ligands_misc_info.csv](https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv)
    - [ligands_fingerprints.csv](https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv)
-   - [excel oxydation states métaux.csv] (lien ne marche pas de Giada) 
+   - [excel oxydation states métaux.csv](https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/excel%20oxydation%20states%20m%C3%A9taux.csv)
      
 These files are loaded from URLs and contain necessary data for the calculations.
 
