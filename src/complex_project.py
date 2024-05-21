@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
-
 import copy as cp
 import pandas as pd
 import re
@@ -12,16 +6,6 @@ from rdkit.Chem import AllChem, Descriptors
 import py3Dmol
 import tkinter as tk
 from PIL import ImageTk
-
-#################################################
-## Load data ####################################
-
-url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
-data_smiles = pd.read_csv(url1, sep=";")
-url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
-data_number_to_charge = pd.read_csv(url2, sep=";")
-url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/excel%20oxydation%20states%20m%C3%A9taux.csv'
-data_oxydation_metal = pd.read_csv(url3, sep=";")
 
 
 #################################################
@@ -33,7 +17,7 @@ def simplify_smiles(smiles):
     ''' 
     parameters: smiles - a list of SMILES strings
     returns: list of simplified SMILES strings
-    usage: simplifies a list of SMILES strings by removing unnecessary characters '''
+    usage: simplifies a list of SMILES strings by removing unnecessary characters to use these new smiles in the next function '''
 
     remove_chars = "[]()123456789=#-+\/:;.,!°{}"
     return [''.join([char for char in smi if char not in remove_chars]) for smi in smiles]
@@ -41,9 +25,9 @@ def simplify_smiles(smiles):
 
 def simplify_idx(idx_list, smiles_list):
     ''' 
-    parameters: idx_list - a list of index lists
-                smiles_list - a list of SMILES string
-    returns: ist of adjusted index lists
+    parameters: idx_list - a list of index lists (atoms in the ligand that will link the metal)
+                smiles_list - a list of SMILES string (from simplify_smiles)
+    returns: list of adjusted index lists
     usage: adjusts indices in idx_list to account for removed characters from the corresponding SMILES strings '''
 
     copy_list = cp.deepcopy(idx_list)
@@ -59,9 +43,9 @@ def simplify_idx(idx_list, smiles_list):
 
 def extraire_nombres(chaine):
     ''' 
-    parameters: chaine - a string
+    parameters: chaine - a string that contain a list into a list (e.g. '[[1]]')
     returns: list of integers found in the string
-    usage: extracts all numbers from a string and returns them as a list of integers'''
+    usage: extracts all list of numbers from a string and returns them as a list of integers'''
 
     return [int(nombre) for nombre in re.findall(r'\d+', chaine)]
 
@@ -72,7 +56,7 @@ def get_idx(ligand_list):
     ''' 
     parameters: ligand_list - a list of a ligand SMILES strings
     returns: list of index lists corresponding to each ligand
-    usage: etrieves bond node indices for given ligand SMILES from the ligands_misc_info.csv table '''
+    usage:found the indices of bonding atoms for given ligand SMILES from the ligands_misc_info.csv table '''
 
     url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
     data_smiles = pd.read_csv(url1, sep=";")
@@ -99,7 +83,7 @@ def correct_link(link_list, ligand_list):
     ''' 
     parameters: link_list - a list of bond indices
                 ligand_list - a list of RDKit molecule objects
-    returns: flattened list of corrected indices (only one list)
+    returns: 1D list of corrected indices
     usage: adjusts the atom indices to account for the atoms of the previously added ligands '''
 
     new_link_list = cp.deepcopy(link_list)
@@ -152,7 +136,7 @@ def create_molecule_in_3D(link, ligand, metal_smiles):
 def show_complex(opt_block):
     ''' 
     parameters: opt_block - a molecule block (string)
-    returns: 3D visualization of the molecule
+    returns: interactive 3D visualization of the molecule
     usage: visualizes a molecule in 3D using py3Dmol '''
 
     viewer = py3Dmol.view(width=400, height=300)
@@ -202,8 +186,8 @@ def calculate_MO(list_of_ligand, metal_name):
 def smile_to_number(ligands):
     ''' 
     parameters: ligands - a list of ligand SMILES strings
-    returns: list of numbers corresponding to each ligand
-    usage: converts ligand SMILES to numbers based on the ligands_misc_info.csv table  '''
+    returns: number_list - a list of strings. Each string correspond to the ligand number of each ligand
+    usage: converts ligand SMILES to ligand numbers based on the ligands_misc_info.csv table  '''
 
     url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
     data_smiles = pd.read_csv(url1, sep=";")
@@ -224,7 +208,7 @@ def smile_to_number(ligands):
 
 def total_charge_of_the_ligands(number_list):
     ''' 
-    parameters: number_list - a list of ligand numbers
+    parameters: number_list - a list of the ligand numbers in strings
     returns: total charge of the ligands
     usage:calculates the total charge of the ligands based on their numbers determined in smile_to_number(ligands) '''
     
@@ -405,10 +389,3 @@ MO_label = tk.Label(window, text="")
 ox_state_label = tk.Label(window, text="")
 
 window.mainloop()
-
-
-# In[ ]:
-
-
-
-
