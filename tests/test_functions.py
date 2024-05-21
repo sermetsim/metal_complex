@@ -73,3 +73,52 @@ def test_correct_link(link_list, ligand_list, expected):
 def test_calculate_MO(list_of_ligand, metal_name, expected):
     results = calculate_MO(list_of_ligand, metal_name)
     assert results == expected
+
+
+@pytest.mark.parametrize(
+    "ligands,expected",
+    [
+        (["[Br]", "[Br]", "[Br]","[Cl]"],['ligand3-0', 'ligand3-0', 'ligand3-0', 'ligand1-0']),
+        (["[C]1(C([H])(C(C([H])([H])[C](C(C([C]1[H])([H])[H])([H])[H])[H])([H])[H])[H])[H]","[Br]","S([O])([O])([O])C(F)(F)F","",], ['ligand2-0', 'ligand3-0', 'ligand8-0']),
+        (["Test for error output", "[Br]","[Cl]"],"Sorry your ligand is invalid")
+        
+        
+    ]
+)
+def test_smile_to_number(ligands,expected): 
+    results=smile_to_number(ligands)
+    assert results== expected
+
+
+@pytest.mark.parametrize(
+    "number_list,expected",
+    [
+        (['ligand1-0', 'ligand3-0', 'ligand1-0'],-3),
+        (['ligand8-0', 'ligand3-0', 'ligand9-0'],-2),
+        (['ligand34-0', 'ligand3-0', 'ligand1-0', 'ligand34-0'],-2)
+        
+        
+    ]
+)
+
+def total_charge_of_the_ligands(number_list,expected):
+    results= total_charge_of_the_ligands(number_list)
+    assert results == expected
+
+
+
+
+
+@pytest.mark.parametrize(
+    "charge, total_charge_ligands, metal,expected",
+    [
+        (-5,-6,"Fe",1),
+        (-5,7,"Pt","Impossible oxydation state of your metal. Please check your inputs"),
+        (2,-2,"Zr",4)
+        
+    ]
+)
+
+def test_metal_oxydation_state(charge, total_charge_ligands, metal, expected):
+    results= metal_oxydation_state(charge, total_charge_ligands, metal)
+    assert results == expected
