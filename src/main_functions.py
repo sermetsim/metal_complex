@@ -148,5 +148,5 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
             if oxydation_by_input in possibles_oxydation:
                 return oxydation_by_input
             else:
-                return "Impossible oxidation state of your metal. Please check your inputs"
+                return "Impossible oxydation state of your metal. Please check your inputs"
     return "Metal not found in the data. Please check your inputs"
