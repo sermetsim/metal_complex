@@ -1,8 +1,8 @@
 import pytest
 import sys
 import os
-sys.path.append(os.path.realpath('src/metal_complex'))
-from src/metal_complex.main_functions import *
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+from main_function import *
 
 
 @pytest.mark.parametrize(
