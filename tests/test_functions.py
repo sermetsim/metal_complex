@@ -1,6 +1,8 @@
 import pytest
-# Assuming functions are imported from the main script
-from main_functions import *
+import sys
+import os
+sys.path.append(os.path.realpath('src/metal_complex'))
+from src/metal_complex.main_functions import *
 
 
 @pytest.mark.parametrize(
