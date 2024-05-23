@@ -5,6 +5,7 @@ from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors
 import py3Dmol
 
+<<<<<<< Updated upstream
 ## simplifying functions ##
 def simplify_smiles(smiles):
     ''' 
@@ -18,11 +19,16 @@ def simplify_smiles(smiles):
     ['CHHH']
     '''
 
+=======
+# Helper functions
+def simplify_smiles(smiles):
+>>>>>>> Stashed changes
     remove_chars = "[]()123456789=#-+\/:;.,!°{}"
     return [''.join([char for char in smi if char not in remove_chars]) for smi in smiles]
 
 
 def simplify_idx(idx_list, smiles_list):
+<<<<<<< Updated upstream
     ''' 
     parameters: idx_list - a list of index lists (atoms in the ligand that will link the metal)
                 smiles_list - a list of SMILES string (from simplify_smiles)
@@ -35,6 +41,8 @@ def simplify_idx(idx_list, smiles_list):
     [[0,4],[0]]
     '''
 
+=======
+>>>>>>> Stashed changes
     copy_list = cp.deepcopy(idx_list)
     new_list = cp.deepcopy(idx_list)
     for k in range(len(smiles_list)):
@@ -47,6 +55,7 @@ def simplify_idx(idx_list, smiles_list):
 
 
 def extraire_nombres(chaine):
+<<<<<<< Updated upstream
     ''' 
     parameters: chaine - a string that contain a list into a list (e.g. '[[1]]')
     returns: list of integers found in the string
@@ -58,10 +67,13 @@ def extraire_nombres(chaine):
     [0,1]
     '''
 
+=======
+>>>>>>> Stashed changes
     return [int(nombre) for nombre in re.findall(r'\d+', chaine)]
 
 
 def get_idx(ligand_list):
+<<<<<<< Updated upstream
     ''' 
     parameters: ligand_list - a list of a ligand SMILES strings
     returns: list of index lists corresponding to each ligand
@@ -73,6 +85,8 @@ def get_idx(ligand_list):
     [[0],[0]]
     '''
 
+=======
+>>>>>>> Stashed changes
     url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
     data_smiles = pd.read_csv(url1, sep=";")
     idx_list = []
@@ -86,6 +100,7 @@ def get_idx(ligand_list):
 
 
 def filter_my_list(ligand_list):
+<<<<<<< Updated upstream
     ''' 
     parameters: ligand_list - a list of ligands (as SMILES)
     returns: filtered list with non-empty ligands
@@ -97,10 +112,13 @@ def filter_my_list(ligand_list):
     ['CHHCHHHCHHHCHH','CHHH', '[Cl]']
     '''
 
+=======
+>>>>>>> Stashed changes
     return [i for i in ligand_list if i != '']
 
 
 def correct_link(link_list, ligand_list):
+<<<<<<< Updated upstream
     ''' 
     parameters: link_list - a list of bond indices
                 ligand_list - a list of RDKit molecule objects
@@ -113,6 +131,8 @@ def correct_link(link_list, ligand_list):
     [0,4,5]
     '''
 
+=======
+>>>>>>> Stashed changes
     new_link_list = cp.deepcopy(link_list)
     for i in range(len(link_list)):
         if i > 0:
@@ -125,6 +145,7 @@ def correct_link(link_list, ligand_list):
 
 
 def smiles_to_ligand(ligand_list):
+<<<<<<< Updated upstream
     ''' 
     parameters: ligand_list - a list of SMILES strings
     returns: list of RDKit molecule objects
@@ -150,6 +171,12 @@ def create_molecule_in_3D(link, ligand, metal_smiles):
     usage: creates a 3D combined metal-ligand molecule 
     '''
 
+=======
+    return [Chem.MolFromSmiles(smi) for smi in ligand_list]
+
+
+def create_molecule_in_3D(link, ligand, metal_smiles):
+>>>>>>> Stashed changes
     combined_molecule = Chem.MolFromSmiles(metal_smiles)
     for lig in ligand[::-1]:
         combined_molecule = Chem.CombineMols(lig, combined_molecule)
@@ -168,12 +195,15 @@ def create_molecule_in_3D(link, ligand, metal_smiles):
 
 
 def show_complex(opt_block):
+<<<<<<< Updated upstream
     ''' 
     parameters: opt_block - a molecule block (string)
     returns: interactive 3D visualization of the molecule
     usage: visualizes a molecule in 3D using py3Dmol 
     '''
 
+=======
+>>>>>>> Stashed changes
     viewer = py3Dmol.view(width=400, height=300)
     viewer.addModel(opt_block, "mol")
     viewer.setStyle({'stick': {}})
@@ -182,6 +212,7 @@ def show_complex(opt_block):
 
 
 def metal_complex(list_of_ligand, metal_name):
+<<<<<<< Updated upstream
     ''' 
     parameters: list_of_ligand - a list of ligand SMILES strings
                 metal_name - a SMILES string of the metal
@@ -189,6 +220,8 @@ def metal_complex(list_of_ligand, metal_name):
     usage: handles the entire process of creating and visualizing a metal-ligand complex (using the previous functions) 
     '''
 
+=======
+>>>>>>> Stashed changes
     ligand_list_not_filtered = cp.deepcopy(list_of_ligand)
     ligand_list_filtered = filter_my_list(ligand_list_not_filtered)
     not_correct_link = get_idx(ligand_list_filtered)
@@ -200,6 +233,7 @@ def metal_complex(list_of_ligand, metal_name):
     return show_complex(complex_block)
 
 
+<<<<<<< Updated upstream
 ## molecular weight calculation ##
 
 def calculate_MO(list_of_ligand, metal_name):
@@ -215,6 +249,9 @@ def calculate_MO(list_of_ligand, metal_name):
     91.875
     '''
 
+=======
+def calculate_MO(list_of_ligand, metal_name):
+>>>>>>> Stashed changes
     Mo = 0
     for smi in list_of_ligand:
         Mo += Descriptors.MolWt(Chem.MolFromSmiles(smi))
@@ -222,6 +259,7 @@ def calculate_MO(list_of_ligand, metal_name):
     return Mo
 
 
+<<<<<<< Updated upstream
 ## oxidation state calculation ##
 
 def smile_to_number(ligands):
@@ -236,6 +274,9 @@ def smile_to_number(ligands):
     
     '''
 
+=======
+def smile_to_number(ligands):
+>>>>>>> Stashed changes
     url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
     data_smiles = pd.read_csv(url1, sep=";")
     number_list = []
@@ -254,6 +295,7 @@ def smile_to_number(ligands):
 
 
 def total_charge_of_the_ligands(number_list):
+<<<<<<< Updated upstream
     ''' 
     parameters: number_list - a list of the ligand numbers in strings
     returns: total charge of the ligands
@@ -266,6 +308,16 @@ def total_charge_of_the_ligands(number_list):
     '''
 
     url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
+
+    for i in number_list:
+        if i == "Sorry your ligand is invalid":
+            return "Sorry your ligand is invalid"
+=======
+   for i in number_list:
+        if i == "Sorry your ligand is invalid":
+            return "Sorry your ligand is invalid"
+    url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
+>>>>>>> Stashed changes
     data_number_to_charge = pd.read_csv(url2, sep=";")
     total_charge_ligands = 0
     for ligand_number in number_list:
@@ -277,6 +329,7 @@ def total_charge_of_the_ligands(number_list):
 
 
 def metal_oxydation_state(charge, total_charge_ligands, metal):
+<<<<<<< Updated upstream
     ''' 
     parameters: charge - the total charge of the complex
                 total_charge_ligands - the total charge of the ligands
@@ -291,6 +344,14 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
     '''
 
     url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
+
+    if total_charge_ligands == "Sorry your ligand is invalid":
+        return "Sorry your ligand is invalid"
+=======
+    if total_charge_ligands == "Sorry your ligand is invalid":
+        return "Sorry your ligand is invalid"
+    url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
+>>>>>>> Stashed changes
     data_oxydation_metal = pd.read_csv(url3, sep=";")
     oxydation_by_input = charge - total_charge_ligands
     met=[metal]
