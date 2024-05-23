@@ -17,7 +17,13 @@ def simplify_smiles(smiles):
     ''' 
     parameters: smiles - a list of SMILES strings
     returns: list of simplified SMILES strings
-    usage: simplifies a list of SMILES strings by removing unnecessary characters to use these new smiles in the next function '''
+    usage: simplifies a list of SMILES strings by removing unnecessary characters to use these new smiles in the next function 
+
+    Example
+    ----
+    >>> simplify_smiles(['[C]([H])([H])[H]'])
+    ['CHHH']
+    '''
 
     remove_chars = "[]()123456789=#-+\/:;.,!°{}"
     return [''.join([char for char in smi if char not in remove_chars]) for smi in smiles]
@@ -28,7 +34,13 @@ def simplify_idx(idx_list, smiles_list):
     parameters: idx_list - a list of index lists (atoms in the ligand that will link the metal)
                 smiles_list - a list of SMILES string (from simplify_smiles)
     returns: list of adjusted index lists
-    usage: adjusts indices in idx_list to account for removed characters from the corresponding SMILES strings '''
+    usage: adjusts indices in idx_list to account for removed characters (H atoms) from the corresponding SMILES strings
+    
+    Example
+    ----
+    >>> simplify_idx([[0,11],[0]],['CHHCHHHCHHHCHH','CHHH'])
+    [[0,4],[0]]
+    '''
 
     copy_list = cp.deepcopy(idx_list)
     new_list = cp.deepcopy(idx_list)
@@ -45,7 +57,13 @@ def extraire_nombres(chaine):
     ''' 
     parameters: chaine - a string that contain a list into a list (e.g. '[[1]]')
     returns: list of integers found in the string
-    usage: extracts all list of numbers from a string and returns them as a list of integers'''
+    usage: extracts all list of numbers from a string and returns them as a list of integers
+        
+    Example
+    ----
+    >>> extraire_nombres([[0,1]])
+    [0,1]
+    '''
 
     return [int(nombre) for nombre in re.findall(r'\d+', chaine)]
 
@@ -56,7 +74,13 @@ def get_idx(ligand_list):
     ''' 
     parameters: ligand_list - a list of a ligand SMILES strings
     returns: list of index lists corresponding to each ligand
-    usage:found the indices of bonding atoms for given ligand SMILES from the ligands_misc_info.csv table '''
+    usage:found the indices of bonding atoms for given ligand SMILES from the ligands_misc_info.csv table 
+    
+    Example
+    ----
+    >>> get_idx['[Cl]','[Cl]'])
+    [[0],[0]]
+    '''
 
     url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
     data_smiles = pd.read_csv(url1, sep=";")
@@ -74,7 +98,13 @@ def filter_my_list(ligand_list):
     ''' 
     parameters: ligand_list - a list of ligands (as SMILES)
     returns: filtered list with non-empty ligands
-    usage: filters out empty strings from a list '''
+    usage: filters out empty strings from a list 
+        
+    Example
+    ----
+    >>> filter_my_list(['CHHCHHHCHHHCHH','CHHH', '', '[Cl]'])
+    ['CHHCHHHCHHHCHH','CHHH', '[Cl]']
+    '''
 
     return [i for i in ligand_list if i != '']
 
