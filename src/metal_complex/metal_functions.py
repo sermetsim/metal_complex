@@ -254,7 +254,6 @@ def smile_to_number(ligands):
 
 
 def total_charge_of_the_ligands(number_list):
-<<<<<<< Updated upstream
     ''' 
     parameters: number_list - a list of the ligand numbers in strings
     returns: total charge of the ligands
@@ -266,11 +265,10 @@ def total_charge_of_the_ligands(number_list):
     
     '''
 
-=======
-   for i in number_list:
+    for i in number_list:
         if i == "Sorry your ligand is invalid":
             return "Sorry your ligand is invalid"
->>>>>>> Stashed changes
+    
     url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
     data_number_to_charge = pd.read_csv(url2, sep=";")
     total_charge_ligands = 0
@@ -283,7 +281,6 @@ def total_charge_of_the_ligands(number_list):
 
 
 def metal_oxydation_state(charge, total_charge_ligands, metal):
-<<<<<<< Updated upstream
     ''' 
     parameters: charge - the total charge of the complex
                 total_charge_ligands - the total charge of the ligands
@@ -297,10 +294,9 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
     
     '''
 
-=======
     if total_charge_ligands == "Sorry your ligand is invalid":
         return "Sorry your ligand is invalid"
->>>>>>> Stashed changes
+    
     url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
     data_oxydation_metal = pd.read_csv(url3, sep=";")
     oxydation_by_input = charge - total_charge_ligands
