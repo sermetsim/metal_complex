@@ -12,6 +12,7 @@ dependencies = [
      "rdkit",
 "py3Dmol",
 "pandas",
+"pillow",
 "regex"
 ]
 authors = [
