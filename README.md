@@ -1,4 +1,4 @@
-# Metal-Ligand Complex Generator
+# ⚛️ Metal-Ligand Complex Generator
 
 This Python script generates and visualizes metal-ligand complexes, calculates molecular properties, and determines the oxidation state of the metal in the complex. It uses the RDKit library for cheminformatics, py3Dmol for 3D visualization, and Tkinter for the graphical user interface.
 
@@ -25,7 +25,7 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
 
 
 
-## Installation
+## ⚙️ Installation
 
 1. Install `RDKit`:
    ```
@@ -100,7 +100,7 @@ python main.py
 - ***toggle_prop1()***, ***toggle_prop4()***, ***toggle_prop5()***: Toggle functions for the GUI checkboxes.
 
 
-## Data
+## 📚 Data
 
 The script uses the following CSV files for ligand and metal information:
    - [ligands_misc_info.csv](https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv)
@@ -115,7 +115,7 @@ These files are loaded from URLs and contain necessary data for the calculations
 This project is licensed under the [MIT License](LICENSE).
 
 
-## Contact
+## 📞 Contact
 
 For any questions or issues, please contact [simon.sermet-magdelain@epfl.ch], [giada.foletti@epfl.ch] or [camille.graf@epfl.ch]. 
 
