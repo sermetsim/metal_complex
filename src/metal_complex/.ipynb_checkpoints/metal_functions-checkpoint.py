@@ -4,15 +4,8 @@ import re
 from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors
 import py3Dmol
-import tkinter as tk
-from PIL import ImageTk
-
-
-#################################################
-## Functions ####################################
 
 ## simplifying functions ##
-
 def simplify_smiles(smiles):
     ''' 
     parameters: smiles - a list of SMILES strings
@@ -68,8 +61,6 @@ def extraire_nombres(chaine):
     return [int(nombre) for nombre in re.findall(r'\d+', chaine)]
 
 
-## metal-ligand bond formation ##
-
 def get_idx(ligand_list):
     ''' 
     parameters: ligand_list - a list of a ligand SMILES strings
@@ -114,7 +105,13 @@ def correct_link(link_list, ligand_list):
     parameters: link_list - a list of bond indices
                 ligand_list - a list of RDKit molecule objects
     returns: 1D list of corrected indices
-    usage: adjusts the atom indices to account for the atoms of the previously added ligands '''
+    usage: adjusts the atom indices to account for the atoms of the previously added ligands 
+            
+    Example
+    ----
+    >>> correct_link([[0,4],[0]], ['C([H])([H])C([H])([H])([H])C([H])([H])([H])C([H])([H])[H]','[C]([H])([H])[H]'])
+    [0,4,5]
+    '''
 
     new_link_list = cp.deepcopy(link_list)
     for i in range(len(link_list)):
@@ -131,7 +128,13 @@ def smiles_to_ligand(ligand_list):
     ''' 
     parameters: ligand_list - a list of SMILES strings
     returns: list of RDKit molecule objects
-    usage: converts a list of SMILES strings to RDKit molecule objects '''
+    usage: converts a list of SMILES strings to RDKit molecule objects 
+                
+    Example
+    ----
+    >>> correct_link(['C([H])([H])C([H])([H])([H])C([H])([H])([H])C([H])([H])[H]','[C]([H])([H])[H]'])
+    [mol object of ethane, mol object of methane]
+    '''
 
     return [Chem.MolFromSmiles(smi) for smi in ligand_list]
 
@@ -144,7 +147,8 @@ def create_molecule_in_3D(link, ligand, metal_smiles):
                 ligand - a list of RDKit molecule objects
                 metal_smiles - a SMILES string of the metal
     returns: a molecule block (string) for 3D visualization
-    usage: creates a 3D combined metal-ligand molecule '''
+    usage: creates a 3D combined metal-ligand molecule 
+    '''
 
     combined_molecule = Chem.MolFromSmiles(metal_smiles)
     for lig in ligand[::-1]:
@@ -167,7 +171,8 @@ def show_complex(opt_block):
     ''' 
     parameters: opt_block - a molecule block (string)
     returns: interactive 3D visualization of the molecule
-    usage: visualizes a molecule in 3D using py3Dmol '''
+    usage: visualizes a molecule in 3D using py3Dmol 
+    '''
 
     viewer = py3Dmol.view(width=400, height=300)
     viewer.addModel(opt_block, "mol")
@@ -181,7 +186,8 @@ def metal_complex(list_of_ligand, metal_name):
     parameters: list_of_ligand - a list of ligand SMILES strings
                 metal_name - a SMILES string of the metal
     returns: 3D visualization of the metal-ligand complex
-    usage: handles the entire process of creating and visualizing a metal-ligand complex (using the previous functions) '''
+    usage: handles the entire process of creating and visualizing a metal-ligand complex (using the previous functions) 
+    '''
 
     ligand_list_not_filtered = cp.deepcopy(list_of_ligand)
     ligand_list_filtered = filter_my_list(ligand_list_not_filtered)
@@ -201,7 +207,13 @@ def calculate_MO(list_of_ligand, metal_name):
     parameters: list_of_ligand - a list of ligand SMILES strings
                 metal_name - a SMILES string of the metal
     returns: molecular weight of the complex
-    usage: calculates the molecular weight of the metal complex '''
+    usage: calculates the molecular weight of the metal complex 
+                    
+    Example
+    ----
+    >>> calculate_MO(['O','O'],'[Fe]')
+    91.875
+    '''
 
     Mo = 0
     for smi in list_of_ligand:
@@ -210,14 +222,19 @@ def calculate_MO(list_of_ligand, metal_name):
     return Mo
 
 
-
 ## oxidation state calculation ##
 
 def smile_to_number(ligands):
     ''' 
     parameters: ligands - a list of ligand SMILES strings
     returns: number_list - a list of strings. Each string correspond to the ligand number of each ligand
-    usage: converts ligand SMILES to ligand numbers based on the ligands_misc_info.csv table  '''
+    usage: converts ligand SMILES to ligand numbers based on the ligands_misc_info.csv table  
+                        
+    Example
+    ----
+    >>> smile_to_number()
+    
+    '''
 
     url1 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv'
     data_smiles = pd.read_csv(url1, sep=";")
@@ -240,8 +257,14 @@ def total_charge_of_the_ligands(number_list):
     ''' 
     parameters: number_list - a list of the ligand numbers in strings
     returns: total charge of the ligands
-    usage:calculates the total charge of the ligands based on their numbers determined in smile_to_number(ligands) '''
+    usage:calculates the total charge of the ligands based on their numbers determined in smile_to_number(ligands) 
+                            
+    Example
+    ----
+    >>> total_charge_of_the_ligands()
     
+    '''
+
     url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
     data_number_to_charge = pd.read_csv(url2, sep=";")
     total_charge_ligands = 0
@@ -259,8 +282,14 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
                 total_charge_ligands - the total charge of the ligands
                 metal - the SMILES string of the metal
     returns: oxidation state of a metal
-    usage: determines the oxidation state of the metal based on ligand charges and total complex charge '''
+    usage: determines the oxidation state of the metal based on ligand charges and total complex charge 
+                            
+    Example
+    ----
+    >>> metal_oxydation_state()
     
+    '''
+
     url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
     data_oxydation_metal = pd.read_csv(url3, sep=";")
     oxydation_by_input = charge - total_charge_ligands
@@ -274,148 +303,3 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
             else:
                 return "Impossible oxydation state of your metal. Please check your inputs"
     return "Metal not found in the data. Please check your inputs"
-
-
-
-#################################################
-## Interface ####################################
-
-## main handler ##
-
-def handle_input():
-    '''
-    collects user inputs: entry_lig1, entry_lig2, ... - SMILES strings for up to six ligands 
-                          entry_metal - SMILES string for the metal 
-                          entry_charge - total charge of the complex converted into a float
-                          
-    generate and show the Metallic Complex (if prop1 is selected): calls metal_complex(all_ligands_entries, metal_entry), which generates and visualizes the metal-ligand complex in 3D
-    
-    calculate Molecular Mass (if prop4 is selected): calls calculate_MO(all_ligands_entries, metal_entry) to calculate the molecular mass of the complex
-                                                     updates the label with the calculated molecular mass and displays it
-    
-    calculate Oxidation State (if prop5 is selected): converts ligand SMILES to their corresponding numbers using smile_to_number(all_ligands_entries)
-                                                      calculates the total charge of the ligands using total_charge_of_the_ligands(number_list)
-                                                      determines the oxidation state of the metal using metal_oxydation_state(total_charge, ligands_charge, metal_entryligand_charge,entry_charge,entry_metal)
-                                                      updates the label with the calculated oxidation state and displays it
-    '''
-
-    all_ligands_entries = [entry_lig1.get(), entry_lig2.get(), entry_lig3.get(), entry_lig4.get(), entry_lig5.get(), entry_lig6.get()]
-    metal_entry = entry_metal.get()
-    total_charge = float(entry_charge.get())
-
-    if prop1:
-        metal_complex(all_ligands_entries, metal_entry)
-    
-    if prop4:
-        MO_label.pack_forget()
-        molar_mass = calculate_MO(all_ligands_entries, metal_entry)
-        MO_label.config(text="Molecular Mass: " + str(round(molar_mass, 3)))
-        MO_label.pack()
-    else:
-        MO_label.pack_forget()
-    
-    if prop5:
-        ox_state_label.pack_forget()
-        ox_state_label.pack()
-        number_list = smile_to_number(all_ligands_entries)
-        ligands_charge = total_charge_of_the_ligands(number_list)
-        ox_state = metal_oxydation_state(total_charge, ligands_charge, metal_entry)
-        ox_state_label.config(text="Oxidation State: " + str(ox_state))
-    else:
-        ox_state_label.pack_forget()
-
-'''
-The toggle functions update their corresponding global variables (prop1, prop4, prop5) wether their checkboxes are checked or not
-'''
-def toggle_prop1():
-    global prop1
-    prop1 = int(var_prop1.get())
-
-
-def toggle_prop4():
-    global prop4
-    prop4 = int(var_prop4.get())
-
-
-def toggle_prop5():
-    global prop5
-    prop5 = int(var_prop5.get())
-
-'''
-First all variables are considered unchecked
-'''
-prop1, prop4, prop5 = 0, 0, 0  
-
-
-## formation of Tkinter window ##
-
-'''
-Main Window: The Tkinter window is created and titled "Metallic Complex"
-
-Labels and Entry Fields: - a label instructs the user to insert up to six ligand SMILES strings
-                         - six entry fields are provided for the ligand SMILES strings
-                         - a label and entry field are provided for the metal SMILES string
-                         - a label and entry field are provided for the total charge of the complex
-                         
-Checkboxes: - select the option to show the metallic complex
-            - select the option to calculate the molecular mass
-            - select the option to calculate the oxidation state
-            
-Submit Button: when clicked it calls handle_input() to process the inputs and display the results
-
-Result Labels: display the calculated molecular mass and oxidation state
-'''
-
-window = tk.Tk()
-window.title("Metallic Complex")
-
-label_ligand = tk.Label(window, text="Insert all the ligands SMILES (6 max.):")
-label_ligand.pack()
-
-frame_ligands = tk.Frame(window)
-frame_ligands.pack()
-
-entry_lig1 = tk.Entry(frame_ligands, width=8)
-entry_lig1.grid(row=0, column=0, padx=5, pady=5)
-entry_lig2 = tk.Entry(frame_ligands, width=8)
-entry_lig2.grid(row=0, column=1, padx=5, pady=5)
-entry_lig3 = tk.Entry(frame_ligands, width=8)
-entry_lig3.grid(row=0, column=2, padx=5, pady=5)
-entry_lig4 = tk.Entry(frame_ligands, width=8)
-entry_lig4.grid(row=0, column=3, padx=5, pady=5)
-entry_lig5 = tk.Entry(frame_ligands, width=8)
-entry_lig5.grid(row=0, column=4, padx=5, pady=5)
-entry_lig6 = tk.Entry(frame_ligands, width=8)
-entry_lig6.grid(row=0, column=5, padx=5, pady=5)
-
-label_metal = tk.Label(window, text="Insert the metal SMILES:")
-label_metal.pack()
-
-entry_metal = tk.Entry(window, width=5)
-entry_metal.pack()
-
-label_charge = tk.Label(window, text="Insert the total charge of the complex:")
-label_charge.pack()
-
-entry_charge = tk.Entry(window, width=5)
-entry_charge.pack()
-
-var_prop1 = tk.IntVar()
-check_prop1 = tk.Checkbutton(window, text="Show the metallic complex", variable=var_prop1, command=toggle_prop1)
-check_prop1.pack()
-
-var_prop4 = tk.IntVar()
-check_prop4 = tk.Checkbutton(window, text="Molecular Mass", variable=var_prop4, command=toggle_prop4)
-check_prop4.pack()
-
-var_prop5 = tk.IntVar()
-check_prop5 = tk.Checkbutton(window, text="Oxidation State", variable=var_prop5, command=toggle_prop5)
-check_prop5.pack()
-
-button = tk.Button(window, text="Submit", command=handle_input)
-button.pack()
-
-MO_label = tk.Label(window, text="")
-ox_state_label = tk.Label(window, text="")
-
-window.mainloop()

@@ -21,7 +21,6 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
 - [Py3Dmol](https://github.com/3dmol/3Dmol.js): A 3D molecular visualization library used to render the metal-ligand complex.
 - [Tkinter](https://wiki.python.org/moin/TkInter): Python's standard GUI package used to create the graphical user interface for input and output.
 - [Pandas](https://github.com/pandas-dev/pandas): A data manipulation and analysis library used to handle and process CSV data files.
-- [Pillow](https://github.com/python-pillow/Pillow): A Python Imaging Library used for handling images within the Tkinter GUI.
 
 
 
@@ -39,9 +38,9 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
    ```
    sudo apt-get install python3-tk
    ```
-4. Install other dependencies:
+4. Install `pandas`:
    ```
-   pip install pandas pillow
+   pip install pandas
    ```
 
 
@@ -59,7 +58,7 @@ python main.py
 
 3. The Tkinter GUI will appear. Follow these steps:
 
-   - Insert up to 6 ligand SMILES strings in the provided fields.
+   - Insert up to 6 ligand SMILES strings from **[ligands_misc_info.csv](https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv)** in the provided fields.
    - Insert the metal SMILES string.
    - Insert the total charge of the complex.
    - Select the properties you want to display:
