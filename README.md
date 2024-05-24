@@ -48,12 +48,12 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
 
 1. Clone this repository:
 ```
-git clone https://github.com/your-username/metal-ligand-complex-generator.git
-cd metal-ligand-complex-generator
+git clone https://github.com/sermetsim/metal_complex
+cd metal_complex
 ```
 2. Run the script:
 ```
-python main.py
+python interface_project.py
 ```
 
 3. The Tkinter GUI will appear. Follow these steps:
@@ -67,6 +67,10 @@ python main.py
       - Display the oxidation state.
    - Click the "Submit" button to generate the results.
 
+Instead of run the script, you also can import the wanted functions in your own script with:  
+```
+from metal_functions import {the functions}
+```
 
 
 ## Functions
