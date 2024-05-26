@@ -267,19 +267,19 @@ def total_charge_of_the_ligands(number_list):
     
     '''
 
-    for i in number_list:
-        if i == "Sorry your ligand is invalid":
-            return "Sorry your ligand is invalid"
+    if number_list == "Sorry your ligand is invalid":
+        return "Sorry your ligand is invalid"
+    else:
     
-    url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
-    data_number_to_charge = pd.read_csv(url2, sep=";")
-    total_charge_ligands = 0
-    for ligand_number in number_list:
-        for index, row in data_number_to_charge.iterrows():
-            if row['name'] == ligand_number:
-                total_charge_ligands += row['charge']
-                break
-    return total_charge_ligands
+        url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
+        data_number_to_charge = pd.read_csv(url2, sep=";")
+        total_charge_ligands = 0
+        for ligand_number in number_list:
+            for index, row in data_number_to_charge.iterrows():
+                if row['name'] == ligand_number:
+                    total_charge_ligands += row['charge']
+                    break
+        return total_charge_ligands
 
 
 def metal_oxydation_state(charge, total_charge_ligands, metal):
@@ -299,17 +299,17 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
 
     if total_charge_ligands == "Sorry your ligand is invalid":
         return "Sorry your ligand is invalid"
-    
-    url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
-    data_oxydation_metal = pd.read_csv(url3, sep=";")
-    oxydation_by_input = charge - total_charge_ligands
-    met=[metal]
-    for index, row in data_oxydation_metal.iterrows():
-        if row['syllabus'] == simplify_smiles(met)[0]:
-            states_str = row['oxydation states'].strip('[]')
-            possibles_oxydation = list(map(int, states_str.split(',')))
-            if oxydation_by_input in possibles_oxydation:
-                return oxydation_by_input
-            else:
-                return "Impossible oxydation state of your metal. Please check your inputs"
-    return "Metal not found in the data. Please check your inputs"
+    else:
+        url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
+        data_oxydation_metal = pd.read_csv(url3, sep=";")
+        oxydation_by_input = charge - total_charge_ligands
+        met=[metal]
+        for index, row in data_oxydation_metal.iterrows():
+            if row['syllabus'] == simplify_smiles(met)[0]:
+                states_str = row['oxydation states'].strip('[]')
+                possibles_oxydation = list(map(int, states_str.split(',')))
+                if oxydation_by_input in possibles_oxydation:
+                    return oxydation_by_input
+                else:
+                    return "Impossible oxydation state of your metal. Please check your inputs"
+        return "Metal not found in the data. Please check your inputs"
