@@ -226,13 +226,14 @@ def calculate_MO(list_of_ligand, metal_name):
 
 def smile_to_number(ligands):
     ''' 
-    parameters: ligands - a list of ligand SMILES strings
+    parameters: ligands - a list of string composed of the ligand SMILES 
     returns: number_list - a list of strings. Each string correspond to the ligand number of each ligand
     usage: converts ligand SMILES to ligand numbers based on the ligands_misc_info.csv table  
                         
     Example
     ----
-    >>> smile_to_number()
+    >>> smile_to_number("[O=C([C](C(=O)C([H])([H])[H])[H])C([H])([H])[H]","O=C(N([H])[O])C([H])([H])[H]","n1c([H])c([H])c(c2c1-c1nc([H])c(c(c1C2=O)[H])[H])[H]"])
+    ['ligand11-0', 'ligand22-0', 'ligand33-0']
     
     '''
 
@@ -261,7 +262,8 @@ def total_charge_of_the_ligands(number_list):
                             
     Example
     ----
-    >>> total_charge_of_the_ligands()
+    >>> total_charge_of_the_ligands( ['ligand11-0', 'ligand22-0', 'ligand33-0'])
+    -2
     
     '''
 
@@ -290,7 +292,8 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
                             
     Example
     ----
-    >>> metal_oxydation_state()
+    >>> metal_oxydation_state(0, -2 , "Fe")
+    2
     
     '''
 
