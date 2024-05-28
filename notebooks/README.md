@@ -58,3 +58,60 @@ notebook_path = os.getcwd()
 src_path = os.path.abspath(os.path.join(notebook_path, "../src/metal_complex"))
 sys.path.insert(0, src_path)
 from metal_functions import *
+```
+
+### Model 3D Metal Complex
+
+Example of creating a six-coordination number complex:
+
+```python
+list_of_ligand_SMILES = ['N([H])([H])C([H])([H])C([H])([H])N([H])[H]', 'N([H])([H])C([H])([H])C([H])([H])N([H])[H]', 'N([H])([H])C([H])([H])C([H])([H])N([H])[H]']
+metal_SMILES = '[Fe]'
+metal_complex(list_of_ligand_SMILES, metal_SMILES)
+```
+
+### Determine Oxidation State
+
+Calculate oxidation state:
+
+```python
+ligands = ['N([H])([H])C([H])([H])C([H])([H])N([H])[H]', 'N([H])([H])C([H])([H])C([H])([H])N([H])[H]', 'N([H])([H])C([H])([H])C([H])([H])N([H])[H]']
+metal_SMILES = '[Fe]'
+charge = 3
+print(metal_oxydation_state(charge, total_charge_of_the_ligands(smile_to_number(ligands)), metal_SMILES))
+```
+
+### Determine Molecular Mass
+
+Calculate molecular mass:
+
+```python
+list_of_ligand_SMILES = ['[Cl]', '[Cl]', '[Cl]', '[Cl]', '[Cl]', '[Cl]']
+metal_SMILES = '[Ni]'
+print(calculate_MO(list_of_ligand_SMILES, metal_SMILES))
+```
+
+### Tkinter interface
+
+Run the interface:
+
+```python
+%run ../src/metal_complex/interface_project.py
+```
+
+
+## Faced Challenges
+
+- **3D Modeling**: Initial attempts to convert SMILES directly to a 3D model faced issues. Resolved by combining ligand mol objects with metal atoms and creating 3D coordinates using RDKit.
+- **Oxidation State**: Difficulty finding a suitable database, resolved by creating a custom .csv file.
+
+
+## Future Development
+
+Future improvements could focus on:
+
+- Determining the number of valence electrons of the central metal.
+- Predicting possible reactions (e.g., ligand association/dissociation, oxidative addition).
+- Enhancing model accuracy and expanding the ligand database.
+- Integrating 3D visualization directly into the Tkinter interface or using a different interface for 3D visualization.
+
