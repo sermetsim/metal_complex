@@ -1,8 +1,8 @@
 # ⚛️ Metal complex Notebook
 
-**metal_complex** simplifies the study of chemical complexes, crucial in catalysis, bioorganic chemistry, and organometallic chemistry. This package provides tools for 3D visualization, determining the oxidation state of the central metal, and calculating the molecular weight of complexes.
+This notebook explains the entire creation process of our program, from the objectives and problems faced to the actual code and potential improvements.
 
-## Objectives
+## ✅ Objectives
 
 This project aims to develop a program that can:
 - Design an interactive 3D structure of a complex from SMILES inputs.
