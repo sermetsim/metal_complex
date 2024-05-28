@@ -3,7 +3,7 @@
 This Python script generates and visualizes metal-ligand complexes, calculates molecular properties, and determines the oxidation state of the metal in the complex. It uses the RDKit library for cheminformatics, py3Dmol for 3D visualization, and Tkinter for the graphical user interface.
 
 
-## Features
+## 🔗 Features
 
 1. ***SMILES Simplification***: Simplifies SMILES strings by removing unnecessary characters.
 2. ***Ligand and Index Extraction***: Extracts bond node indices from ligand SMILES.
@@ -14,7 +14,7 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
 7. ***Oxidation State Calculation***: Determines the oxidation state of the metal based on ligand charges and the total charge of the complex.
 8. ***Graphical User Interface***: Provides a GUI for user input and displays results.
 
-## Requirements
+## 🛠️ Requirements
 
 - [Python 3.x](https://www.python.org/): The programming language used to write and run the script.
 - [RDKit](https://github.com/rdkit/rdkit): A collection of cheminformatics and machine learning tools used for molecular operations such as creating and manipulating molecules from SMILES strings.
@@ -44,7 +44,7 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
    ```
 
 
-## Usage
+## 🔥 Usage
 
 1. Clone this repository:
 ```
@@ -73,7 +73,7 @@ from metal_functions import {the functions}
 ```
 
 
-## Functions
+## 🧮 Functions
 
 ### Simplification and Extraction
 
@@ -113,7 +113,7 @@ The script uses the following CSV files for ligand and metal information:
 These files are loaded from URLs and contain necessary data for the calculations.
 
 
-## License
+## 📌 License
 
 This project is licensed under the [MIT License](LICENSE).
 
