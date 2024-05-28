@@ -1,4 +1,4 @@
-# metal_complex
+# metal_complex_notebook
 
 **metal_complex** simplifies the study of chemical complexes, crucial in catalysis, bioorganic chemistry, and organometallic chemistry. This package provides tools for 3D visualization, determining the oxidation state of the central metal, and calculating the molecular weight of complexes.
 
