@@ -9,7 +9,7 @@ This project aims to develop a program that can:
 - Determine the oxidation state of the central metal atom.
 - Calculate the molecular weight of sophisticated complexes.
 
-## Tools and Data Used
+## 📚 Tools and Data Used
 
 ### Environment
 
@@ -29,7 +29,7 @@ This project aims to develop a program that can:
 - **ligands_fingerprints.csv**: Used to find the charge of each ligand.
 - **oxidation_states_métaux.csv**: Used to verify the possible oxidation states of metals.
 
-## Creation Process
+## 👩🏻‍💻 Creation Process
 
 ### 1. Model 3D Metal Complex
 
@@ -45,7 +45,7 @@ This project aims to develop a program that can:
 
 - **Tkinter Interface**: Allows user input for ligands and metal (as SMILES), the global charge of the final complex, and choice of output (3D complex, molecular weight, oxidation state).
 
-## Usage
+## 🔥 Usage
 
 ### Initialization
 
