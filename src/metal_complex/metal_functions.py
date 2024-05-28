@@ -226,13 +226,14 @@ def calculate_MO(list_of_ligand, metal_name):
 
 def smile_to_number(ligands):
     ''' 
-    parameters: ligands - a list of ligand SMILES strings
+    parameters: ligands - a list of string composed of the ligand SMILES 
     returns: number_list - a list of strings. Each string correspond to the ligand number of each ligand
     usage: converts ligand SMILES to ligand numbers based on the ligands_misc_info.csv table  
                         
     Example
     ----
-    >>> smile_to_number()
+    >>> smile_to_number("[O=C([C](C(=O)C([H])([H])[H])[H])C([H])([H])[H]","O=C(N([H])[O])C([H])([H])[H]","n1c([H])c([H])c(c2c1-c1nc([H])c(c(c1C2=O)[H])[H])[H]"])
+    ['ligand11-0', 'ligand22-0', 'ligand33-0']
     
     '''
 
@@ -261,19 +262,24 @@ def total_charge_of_the_ligands(number_list):
                             
     Example
     ----
-    >>> total_charge_of_the_ligands()
+    >>> total_charge_of_the_ligands( ['ligand11-0', 'ligand22-0', 'ligand33-0'])
+    -2
     
     '''
 
-    url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
-    data_number_to_charge = pd.read_csv(url2, sep=";")
-    total_charge_ligands = 0
-    for ligand_number in number_list:
-        for index, row in data_number_to_charge.iterrows():
-            if row['name'] == ligand_number:
-                total_charge_ligands += row['charge']
-                break
-    return total_charge_ligands
+    if number_list == "Sorry your ligand is invalid":
+        return "Sorry your ligand is invalid"
+    else:
+    
+        url2 = 'https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_fingerprints.csv'
+        data_number_to_charge = pd.read_csv(url2, sep=";")
+        total_charge_ligands = 0
+        for ligand_number in number_list:
+            for index, row in data_number_to_charge.iterrows():
+                if row['name'] == ligand_number:
+                    total_charge_ligands += row['charge']
+                    break
+        return total_charge_ligands
 
 
 def metal_oxydation_state(charge, total_charge_ligands, metal):
@@ -286,20 +292,24 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
                             
     Example
     ----
-    >>> metal_oxydation_state()
+    >>> metal_oxydation_state(0, -2 , "Fe")
+    2
     
     '''
 
-    url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
-    data_oxydation_metal = pd.read_csv(url3, sep=";")
-    oxydation_by_input = charge - total_charge_ligands
-    met=[metal]
-    for index, row in data_oxydation_metal.iterrows():
-        if row['syllabus'] == simplify_smiles(met)[0]:
-            states_str = row['oxydation states'].strip('[]')
-            possibles_oxydation = list(map(int, states_str.split(',')))
-            if oxydation_by_input in possibles_oxydation:
-                return oxydation_by_input
-            else:
-                return "Impossible oxydation state of your metal. Please check your inputs"
-    return "Metal not found in the data. Please check your inputs"
+    if total_charge_ligands == "Sorry your ligand is invalid":
+        return "Sorry your ligand is invalid"
+    else:
+        url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
+        data_oxydation_metal = pd.read_csv(url3, sep=";")
+        oxydation_by_input = charge - total_charge_ligands
+        met=[metal]
+        for index, row in data_oxydation_metal.iterrows():
+            if row['syllabus'] == simplify_smiles(met)[0]:
+                states_str = row['oxydation states'].strip('[]')
+                possibles_oxydation = list(map(int, states_str.split(',')))
+                if oxydation_by_input in possibles_oxydation:
+                    return oxydation_by_input
+                else:
+                    return "Impossible oxydation state of your metal. Please check your inputs"
+        return "Metal not found in the data. Please check your inputs"
