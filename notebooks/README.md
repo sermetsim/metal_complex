@@ -100,13 +100,13 @@ Run the interface:
 ```
 
 
-## Faced Challenges
+## 💪🏼 Faced Challenges
 
 - **3D Modeling**: Initial attempts to convert SMILES directly to a 3D model faced issues. Resolved by combining ligand mol objects with metal atoms and creating 3D coordinates using RDKit.
 - **Oxidation State**: Difficulty finding a suitable database, resolved by creating a custom .csv file.
 
 
-## Future Development
+## 🔮 Future Development
 
 Future improvements could focus on:
 
