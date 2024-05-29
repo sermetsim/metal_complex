@@ -32,9 +32,9 @@ git clone https://github.com/sermetsim/metal_complex
 cd {path/metal_complex}
 ```
 2. Install `RDKit`,`Py3Dmol`,`Tkinter` (usually included with Python) and `pandas`:
-   ```
-   pip install .
-   ```
+```
+pip install .
+```
 
 
 ## 🔥 Usage
