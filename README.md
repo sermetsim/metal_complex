@@ -26,37 +26,25 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
 
 ## ⚙️ Installation
 
-1. Install `RDKit`:
-   ```
-   conda install -c rdkit rdkit
-   ```
-2. Install `Py3Dmol`:
-   ```
-   pip install py3Dmol
-   ```
-3. Install `Tkinter` (usually included with Python):
-   ```
-   sudo apt-get install python3-tk
-   ```
-4. Install `pandas`:
-   ```
-   pip install pandas
-   ```
-
-
-## 🔥 Usage
-
 1. Clone this repository:
 ```
 git clone https://github.com/sermetsim/metal_complex
 cd metal_complex
 ```
-2. Run the script:
+2. Install `RDKit`,`Py3Dmol`,`Tkinter` (usually included with Python) and `pandas`:
+   ```
+   pip install .
+   ```
+
+
+## 🔥 Usage
+
+1. Run the script:
 ```
 python interface_project.py
 ```
 
-3. The Tkinter GUI will appear. Follow these steps:
+2. The Tkinter GUI will appear. Follow these steps:
 
    - Insert up to 6 ligand SMILES strings from **[ligands_misc_info.csv](https://raw.githubusercontent.com/hkneiding/tmQMg-L/main/ligands_misc_info.csv)** in the provided fields.
    - Insert the metal SMILES string.
