@@ -300,7 +300,7 @@ def metal_oxydation_state(charge, total_charge_ligands, metal):
     if total_charge_ligands == "Sorry your ligand is invalid":
         return "Sorry your ligand is invalid"
     else:
-        url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/oxydation%20states%20m%C3%A9taux.csv'
+        url3 = 'https://raw.githubusercontent.com/sermetsim/metal_complex/main/data/metal_oxydation_state.csv'
         data_oxydation_metal = pd.read_csv(url3, sep=";")
         oxydation_by_input = charge - total_charge_ligands
         met=[metal]
