@@ -29,7 +29,7 @@ This Python script generates and visualizes metal-ligand complexes, calculates m
 1. Clone this repository:
 ```
 git clone https://github.com/sermetsim/metal_complex
-cd metal_complex
+cd {path/metal_complex}
 ```
 2. Install `RDKit`,`Py3Dmol`,`Tkinter` (usually included with Python) and `pandas`:
    ```
