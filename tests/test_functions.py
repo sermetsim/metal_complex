@@ -97,7 +97,8 @@ def test_smile_to_number(ligands,expected):
     [
         (['ligand1-0', 'ligand3-0', 'ligand1-0'],-3),
         (['ligand8-0', 'ligand3-0', 'ligand9-0'],-2),
-        (['ligand34-0', 'ligand3-0', 'ligand1-0', 'ligand34-0'],-2)
+        (['ligand34-0', 'ligand3-0', 'ligand1-0', 'ligand34-0'],-2),
+        ("Sorry your ligand is invalid","Sorry your ligand is invalid")
         
         
     ]
@@ -116,7 +117,8 @@ def total_charge_of_the_ligands(number_list,expected):
     [
         (-5,-6,"Fe",1),
         (-5,7,"Pt","Impossible oxydation state of your metal. Please check your inputs"),
-        (2,-2,"Zr",4)
+        (2,-2,"Zr",4),
+        (4,"Sorry your ligand is invalid","Co","Sorry your ligand is invalid")
         
     ]
 )
